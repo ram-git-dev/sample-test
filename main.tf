@@ -104,9 +104,7 @@ resource "aws_lb" "my-aws-alb" {
   name     = "my-test-alb"
   internal = false
 
-  security_groups = [
-    "${aws_security_group.elb_security_group.id}",
-  ]
+  security_groups = "${aws_security_group.elb_security_group.id}"
 
   subnets = [ "subnet-*******", "subnet-********" ]
     tags = {
