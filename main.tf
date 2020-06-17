@@ -33,8 +33,8 @@ resource "aws_security_group" "ec2_security_group" {
 
 resource "aws_instance" "server_1" {
  ami_id = "ami-0e34e7b9ca0ace12d"
- instance_type = ""t2.micro"
- security_group = {"aws_security_group.ec2_security_group.id"}
+ instance_type = "t2.micro"
+ security_group = ${"aws_security_group.ec2_security_group.id"}
  subnet_id = "subnet-******"
 }
 
@@ -43,7 +43,7 @@ resource "aws_instance" "server_1" {
 resource "aws_instance" "server_2" {
  ami_id = "ami-0e34e7b9ca0ace12d"
  instance_type = "t2.micro"
- security_group = {"aws_security_group.ec2_security_group.id"}
+ security_group = ${"aws_security_group.ec2_security_group.id"}
  subnet_id = "subnet-*******"
 }
 
