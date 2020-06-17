@@ -1,0 +1,35 @@
+---
+
+#either run this through AWS sys manager or by configuring ansible master-slave via ssh-key-gen
+
+# before running this playbook you need to add the hostdetails of ec2 instance under etc/ansible/host > group [ec2]
+
+- name: This sets up an httpd webserver
+  hosts: ec2
+  become : true
+
+  tasks:
+  - name: Install apache packages 
+    yum:
+      name: httpd
+      state: latest
+
+  - name: ensure httpd is running
+    service:
+      name: httpd 
+      state: started
+ 
+ - name: Install status configuration file
+   template:
+     src: etc_httpd_conf.d_status.conf.j2
+     dest: "{{ httpd_status_config }}"
+     mode: '0644'
+   
+  
+ - name: ensure httpd is running
+   service:
+      name: httpd 
+      state: restarted
+
+
+# run with command ansible-playbook httpd.yml
